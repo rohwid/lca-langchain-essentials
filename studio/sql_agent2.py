@@ -1,13 +1,9 @@
 """SQL agent for studio."""
 
-import pathlib
-import re
 
-import requests
 from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
 from langchain_community.utilities import SQLDatabase
-from langchain_core.messages import SystemMessage
 from langchain_core.tools import tool
 
 llm = init_chat_model("openai:gpt-5")
@@ -22,7 +18,7 @@ def execute_sql(query: str) -> str:
     """Execute a query and return results."""
 
     try:
-        return db.run(query)
+        return str(db.run(query))
     except Exception as e:
         return f"Error: {e}"
 
